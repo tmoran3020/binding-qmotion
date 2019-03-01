@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="qmotion"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+    xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+    <bridge-type id="qsync">
+        <label>QSync Controller</label>
+        <description>Qmotion Qsync controller</description>
+
+        <config-description>
+            <parameter name="ipAddress" type="text" required="true">
+                <label>IP or Host Name</label>
+                <description>The IP or host name of the Qsync controller</description>
+                <context>network-address</context>
+            </parameter>
+        </config-description>
+    </bridge-type>
+
+    <thing-type id="shade-group">
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="qsync" />
+        </supported-bridge-type-refs>
+        <label>Shade Group</label>
+        <description>Shade Group</description>
+        <channels>
+            <channel id="position" typeId="shade-position"/>
+        </channels>
+        <config-description>
+            <parameter name="id" type="text" required="true">
+                <label>id</label>
+                <description>The id of the shade group.</description>
+            </parameter>
+        </config-description>
+    </thing-type>
+
+    <channel-type id="shade-position">
+        <item-type>Rollershutter</item-type>
+        <label>Position</label>
+        <description>The vertical position of the shade group</description>
+    </channel-type>
+
+</thing:thing-descriptions>
