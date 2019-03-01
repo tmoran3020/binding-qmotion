@@ -69,8 +69,8 @@ Rollershutter LivingRoomBottomWindows { channel="motion:shade-group:bottomwindow
 qmotion.sitemap:
 
 ```
-Default item= LivingRoomTopWindows label="Shades"
-Slider item= LivingRoomTopWindows label="Shades"
+Default item=LivingRoomTopWindows label="Shades"
+Slider item=LivingRoomTopWindows label="Shades"
 ```
 
 ## Known Limitations
