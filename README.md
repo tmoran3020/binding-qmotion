@@ -1,6 +1,6 @@
 # Qmotion Binding
 
-This binding controls Qmotion shades via a Qmotion [qsync](http://www.qmotionshades.com/products/25-controls/218-qsync) controller. Different shade groups defined within the qsync controller can be individually controlled for up/down and partial positions in increments of 12.5%.
+This openHAB binding controls Qmotion shades via a Qmotion [qsync](http://www.qmotionshades.com/products/25-controls/218-qsync) controller. Different shade groups defined within the qsync controller can be individually controlled for up/down and partial positions in increments of 12.5%.
 
 Note: This binding relies upon shade groups already defined in the qsync application. You cannot create new shade groups with this binding.
 
