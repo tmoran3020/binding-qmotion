@@ -40,6 +40,8 @@ public class RemoteController {
 
     private static final int CONNECTION_TIMEOUT = 500;
 
+    private static Object lock = new Object();
+
     private final Logger logger = LoggerFactory.getLogger(RemoteController.class);
 
     private String host;
@@ -142,22 +144,26 @@ public class RemoteController {
      * @throws RemoteControllerException
      */
     private void sendCommandBytes(List<byte[]> commands, int sleepInMs) throws RemoteControllerException {
-        Iterator<byte[]> iterator = commands.iterator();
-        while (iterator.hasNext()) {
-            sendCommandBytes(iterator.next());
+        // The qsync controller cannot handle multiple threads, all commands should
+        // complete independently
+        synchronized (lock) {
+            Iterator<byte[]> iterator = commands.iterator();
+            while (iterator.hasNext()) {
+                sendCommandBytes(iterator.next());
 
-            // Only sleep if there's another command to send
-            if (iterator.hasNext()) {
-                try {
-                    Thread.sleep(sleepInMs);
-                } catch (InterruptedException e) {
-                    // We're not doing anything mission critical, allow thread shutdown
-                    return;
+                // Only sleep if there's another command to send
+                if (iterator.hasNext()) {
+                    try {
+                        Thread.sleep(sleepInMs);
+                    } catch (InterruptedException e) {
+                        // We're not doing anything mission critical, allow thread shutdown
+                        return;
+                    }
                 }
             }
-        }
 
-        closeConnection();
+            closeConnection();
+        }
 
         logger.debug("Command(s) successfully sent");
     }
